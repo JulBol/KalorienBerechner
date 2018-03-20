@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <!-- The following 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Special Font -->
+    <link href="https://fonts.googleapis.com/css?family=Electrolize" rel="stylesheet">
+    <!-- Bootstrap (for css) -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap_4_beta.min.css" rel="stylesheet">
+    <!-- own Stylesheet -->
+    <link href="css/stylesheet.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- jquery (js) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <!-- Knockout JS -->
+    <script src="http://knockoutjs.com/downloads/knockout-3.4.2.js" type="text/javascript"></script>
+    <!-- viewmodel (js)-->
+    <script src="viewmodels/viewmodel.js" type="text/javascript"></script>
+
+    <!-- Picture in tab -->
+    <link rel="icon" href="img/iconJS.ico" />
+    <title>Shift</title>
+  </head>
+  <body>
+    <!-- ## start navigation ## -->
+    <nav class="navbar navbar-inverse bg-inverse text-white form-inline">
+      <div class=" col-md-12 row">
+        <div class="col-md-4 offset-md-4 text-center">
+          <a class="navbar-brand" href="index.html" id="demo">Shift</a>
+        </div>
+        <div class="ml-auto">
+        </div>
+      </div>
+    </nav>
+    <!-- ## stop navigation ## -->
+    <!-- ## start content ## -->
+    <div class="container-fluid row" id="myContainer">
+      <div class="fullHeightWidth d-flex flex-column justify-content-center align-items-center">
+        <div id="calCalc" class="row">
+          <div id="leftWell">
+            <div class="fullHeightWidth d-flex flex-column justify-content-center">
+              <select id="sport" class="textField text-white" placeholder="Calories" data-bind="options: sports, optionsText: 'sportname', optionsValue : 'value', optionsCaption: 'Choose activity..'" />
+              <input id="weight" class="textField" placeholder="Weight (KG)" />
+              <input id="calories" class="textField" placeholder="Calories" />
+            </div>
+          </div>
+          <div id="rightWell" class="well d-flex justify-content-center align-items-center">
+            <p id="output" class="textField"><p>
+          </div>
+        </div>
+        <div id="calButton" class="form-group">
+          <button id="btnCalculate" class="form-control">Let's Calculate!</button>
+        </div>
+      </div>
+    </div>
+    <!-- ## stop content ## -->
+
+    <!-- ## start script ## -->
+    <script>
+      /*
+      ##########################################################
+      # @TRISTAN: You can change the colors of the output here #
+      ##########################################################
+      */
+      var colorTime       = "yellow";
+      var colorSport      = "orange";
+      var colorCalories   = "red";
+
+      var standardText = "It would take you ___ minutes of _________ to burn off ____ calories.";
+
+      $('#btnCalculate').click(function(){
+        var activityValue = $('#sport').val();
+        var weight        = $('#weight').val();
+        var calories      = $('#calories').val();
+        if($('#sport').val() != "" && $('#weight').val() != "" && $('#calories').val() != ""){
+          var time =  ((activityValue * calories) / weight).toFixed(2);
+          document.getElementById('output').innerHTML = "It would take you <span style='color: "+colorTime+";'>" + time + "</span> minutes of <span style='color: "+colorSport+";'>" + $('#sport option:selected').text() + "</span> to burn off <span style='color: "+colorCalories+";'>" + calories + "</span> calories."
+        }else{
+          console.log(activityValue + ";" + weight + ";" + calories);
+          alert("Please fill out ever input-field!");
+        }
+      });
+
+      $(document).ready(function(){
+        $('#output').text(standardText);
+      });
+    </script>
+    <!-- ## end script ## -->
+  </body>
+</html>
